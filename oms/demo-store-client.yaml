@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-store-client-deployment
+  namespace: oms
+  labels:
+    app: demo-store-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-store-client
+  template:
+    metadata:
+      labels:
+        app: demo-store-client
+    spec:
+      containers:
+        - name: demo-store-client
+          image: bennynoyman/oms-front:0.0.2
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: demo-store-config

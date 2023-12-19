@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-store-config
+  namespace: erp
+data:
+  NODE_ENV: "development"

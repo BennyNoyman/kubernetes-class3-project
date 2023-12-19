@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-store-server-deployment
+  namespace: oms
+  labels:
+    app: demo-store-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-store-server
+  template:
+    metadata:
+      labels:
+        app: demo-store-server
+    spec:
+      containers:
+        - name: demo-store-server
+          image: bennynoyman/oms-back:0.0.2
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: demo-store-config
+            - secretRef:
+                name: demo-store-secret

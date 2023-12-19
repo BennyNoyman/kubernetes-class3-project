@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-store-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: a4172b64968904b5982f9ca31f389a84-1576877609.eu-central-1.elb.amazonaws.com
+      http:
+        paths:
+          - path: /banner/api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: banner-server-service-external
+                port:
+                  number: 5000
+          - path: /banner(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: banner-client-service-external
+                port:
+                  number: 80
+          - path: /erp/api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: erp-server-service-external
+                port:
+                  number: 5000
+          - path: /erp(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: erp-client-service-external
+                port:
+                  number: 80
+          - path: /oms/api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: oms-server-service-external
+                port:
+                  number: 5000
+          - path: /oms(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: oms-client-service-external
+                port:
+                  number: 80
+          - path: /store/api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: store-server-service-external
+                port:
+                  number: 5000
+          - path: /store(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: store-client-service-external
+                port:
+                  number: 80
